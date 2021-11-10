@@ -1,0 +1,42 @@
+{{ define "content" }}
+
+<aside id="aside" class="card">
+  <p>this will have some info</p>
+</aside>
+<style>
+  aside {
+
+    width: 30%;
+    height: 60vh;
+
+    margin-top: 4rem;
+    /* margin-left: 3rem; */
+    margin-right: 7rem;
+    align-content: center;
+    text-align: center;
+    float: right;
+    font-style: italic;
+    border: solid  0.05rem;
+    border-radius: 0.1rem;
+  }
+  @media screen and (min-width: 200px) and (max-width: 500px) {
+  #aside { display: none; }
+}
+</style>
+  
+{{ range . }}
+
+<br/>
+  <div class="card" style="margin-left: 0rem; margin-bottom: 5rem; width: 30vw; max-width: 30rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ .Topic }}</h5>
+      <h6 class="card-title">{{ .Body }}</h6>
+      <p class="card-text">Started By {{ .CreatedBy }}</p>
+      <p class="card-text">{{ .CreatedAt }}</p>
+      <a class="btn btn-primary" href="/thread/read?id={{.Uuid }}">Read More</a>
+    </div>
+  </div>
+
+{{ end }}
+
+{{ end }}
