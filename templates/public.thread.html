@@ -2,24 +2,25 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Topic }}</span>
+    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Thread.Topic }}</span>
     <br/>
     <br/>
-    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Body }}</span>
+    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Thread.Body }}</span>
     <div class="pull-right">
         <br/>
-      Started by {{ .CreatedBy }} - {{ .CreatedAt }}
+      Started by {{ .Thread.CreatedBy }} - {{ .Thread.CreatedAt }}
     </div>
 
   </div>
-  
-  {{ range .Posts }}
-  <div class="panel-body">
-    <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
-    <div class="pull-right">
-      {{ .User.Name }} - {{ .CreatedAtDate }}
-    </div>    
-  </div>
+
+
+  {{ range .Post }}
+    <div class="panel-body" style="border: solid black 0.1rem;">
+      <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
+      <div class="pull-right">
+        {{ .UserId }} - {{ .CreatedAt }}
+      </div>    
+    </div>
   {{ end }}
 
 </div>

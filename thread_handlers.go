@@ -5,9 +5,48 @@ import (
 	"log"
 	"net/http"
 	"text/template"
+	"time"
 
 	"github.com/SrijanSriv/gorum/data"
 )
+
+type ThreadsPosts struct {
+	Thread data.Thread
+	Post   []data.Post
+}
+
+func readThread(w http.ResponseWriter, r *http.Request) {
+
+	uuid := r.URL.Query().Get("id")
+	stuff := ThreadsPosts{}
+	post := []data.Post{{
+		Id:        0,
+		Uuid:      "0",
+		Body:      "some body",
+		UserId:    0,
+		ThreadId:  0,
+		CreatedAt: time.Now().Format("02-01-2006 15:04:05"),
+	}}
+	thread, err := data.ThreadByUuid(uuid)
+
+	stuff.Thread = thread
+	stuff.Post = post
+	if err != nil {
+		log.Fatal(err)
+	} else {
+		_, err := session(w, r)
+		var templates *template.Template
+		public_thread_files := []string{"templates/public.layout.html", "templates/public.navbar.html", "templates/public.thread.html"}
+		private_thread_files := []string{"templates/private.layout.html", "templates/private.navbar.html", "templates/private.thread.html"}
+		if err != nil {
+			// fmt.Println(stuff)
+			templates = template.Must(template.ParseFiles(public_thread_files...))
+		} else {
+			templates = template.Must(template.ParseFiles(private_thread_files...))
+		}
+		templates.Execute(w, stuff)
+	}
+}
 
 func newThread(w http.ResponseWriter, r *http.Request) {
 	_, err := session(w, r)
@@ -43,27 +82,6 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 			log.Fatal(err)
 		}
 		http.Redirect(w, r, "/", http.StatusFound)
-	}
-}
-
-func readThread(w http.ResponseWriter, r *http.Request) {
-	vals := r.URL.Query()
-	uuid := vals.Get("uuid")
-
-	thread, err := data.ThreadByUuid(uuid)
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		_, err := session(w, r)
-		var templates *template.Template
-		public_thread_files := []string{"templates/public.layout.html", "templates/public.navbar.html", "templates/public.thread.html"}
-		private_thread_files := []string{"templates/private.layout.html", "templates/private.navbar.html", "templates/private.thread.html"}
-		if err != nil {
-			templates = template.Must(template.ParseFiles(public_thread_files...))
-		} else {
-			templates = template.Must(template.ParseFiles(private_thread_files...))
-		}
-		templates.Execute(w, thread)
 	}
 }
 

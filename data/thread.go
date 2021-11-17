@@ -24,7 +24,7 @@ type Post struct {
 	Body      string
 	UserId    int
 	ThreadId  int
-	CreatedAt time.Time
+	CreatedAt string
 }
 
 func CreateThread(topic, body, user string) (err error) {
@@ -79,7 +79,6 @@ func GetThreads() (th []Thread) {
 
 func ThreadByUuid(Uuid string) (thread Thread, err error) { /*really messy, but FindOne doesn't seem to work*/
 
-	var foundUuid string
 	var foundTopic string
 	var foundBody string
 	var foundCreatedBy string
@@ -98,7 +97,6 @@ func ThreadByUuid(Uuid string) (thread Thread, err error) { /*really messy, but 
 
 	for _, singleUser := range filteredCursor {
 
-		foundUuid = fmt.Sprint(singleUser["Uuid"])
 		foundTopic = fmt.Sprint(singleUser["Topic"])
 		foundBody = fmt.Sprint(singleUser["Body"])
 		foundCreatedAt = fmt.Sprint(singleUser["CreatedAt"])
@@ -106,7 +104,7 @@ func ThreadByUuid(Uuid string) (thread Thread, err error) { /*really messy, but 
 	}
 
 	thread = Thread{
-		Uuid:      foundUuid,
+		Uuid:      Uuid,
 		Topic:     foundTopic,
 		Body:      foundBody,
 		CreatedAt: foundCreatedAt,

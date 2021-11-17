@@ -2,42 +2,38 @@
 
 <div class="panel panel-default">
   <div class="panel-heading">
-    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Topic }}</span>
+    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Thread.Topic }}</span>
     <br/>
     <br/>
-    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Body }}</span>
+    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Thread.Body }}</span>
     <div class="pull-right">
         <br/>
-      Started by {{ .CreatedBy }} - {{ .CreatedAt }}
+      Started by {{ .Thread.CreatedBy }} - {{ .Thread.CreatedAt }}
     </div>
-
-  </div>
-  
-  {{ range .Posts }}
-  <div class="panel-body">
-    <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
-    <div class="pull-right">
-      {{ .CreatedBy }} - {{ .CreatedAt }}
-    </div>    
-  </div>
-  {{ end }}    
-
 </div>
 
-
-  <div class="panel panel-info">
-    <div class="panel-body">
-     <form role="form" action="/thread/post" method="post">
-       <div class="form-group">
-         <textarea class="form-control" name="body" id="body" placeholder="Write your reply here" rows="3"></textarea>
-         <input type="hidden" name="uuid" value="{{ .Uuid }}">
-         <br/>
-         <button class="btn btn-primary pull-right" type="submit">Reply</button>
-       </div>
-     </form>
-     </div>
+{{ range .Post }}
+    <div class="panel-body" style="border: solid black 0.1rem;">
+      <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
+      <div class="pull-right">
+        {{ .UserId }} - {{ .CreatedAt }}
+      </div>    
+    </div>
+{{ end }}
+    
+<div class="panel panel-info">
+  <div class="panel-body">
+    <form role="form" action="/thread/post" method="post">
+      <div class="form-group">
+        <textarea class="form-control" name="body" id="body" placeholder="Write your reply here" rows="3"></textarea>
+        <input type="hidden" name="uuid" value="{{ .Uuid }}">
+        <br/>
+        <button class="btn btn-primary pull-right" type="submit">Reply</button>
+      </div>
+    </form>
   </div>
+</div>
+</div>
 
-
-
+    
 {{ end }}
