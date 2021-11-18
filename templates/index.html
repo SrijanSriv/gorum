@@ -7,7 +7,7 @@
 {{ range . }}
 
 <br/>
-  <div id="thread" class="card" style="margin-left: 0rem; margin-bottom: 5rem; width: 30vw; max-width: 30rem;">
+  <div id="thread" class="card" style=" margin-bottom: 5rem; width: 30vw; max-width: 30rem;">
     <div class="card-body">
       <h5 class="card-title">{{ .Topic }}</h5>
       <h6 class="card-title">{{ .Body }}</h6>
@@ -20,12 +20,12 @@
   <style>
     aside {
   
-      width: 30%;
+      width: 35%;
       height: 60vh;
   
       margin-top: 4rem;
-      /* margin-left: 3rem; */
-      margin-right: 7rem;
+      margin-left: 1rem;
+      margin-right: 5rem;
       align-content: center;
       text-align: center;
       float: right;
@@ -33,9 +33,9 @@
       border: solid  0.05rem;
       border-radius: 0.1rem;
     }
-    @media screen and (min-width: 200px) and (max-width: 500px) {
+    @media screen and (min-width: 0px) and (max-width: 880px) {
     #aside { display: none; }
-    #thread { display: inline; }
+     #thread {  min-width: 90%; margin: 5%; }
   }
   </style>
 

@@ -1,7 +1,7 @@
 {{ define "content" }}
 
 <div class="panel panel-default">
-  <div class="panel-heading">
+  <div class="panel-heading" style="margin-top: 2rem; border: solid grey 0.05rem;">
     <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Thread.Topic }}</span>
     <br/>
     <br/>
@@ -13,7 +13,7 @@
 </div>
 
 {{ range .Post }}
-    <div class="panel-body" style="border: solid black 0.1rem;">
+    <div class="panel-body" style="margin-top: 2rem; padding: 2rem; border: solid black 0.1rem;">
       <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
       <div class="pull-right">
         {{ .UserId }} - {{ .CreatedAt }}
