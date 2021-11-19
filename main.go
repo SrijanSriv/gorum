@@ -21,7 +21,7 @@ func main() {
 	mux.HandleFunc("/thread/post", postThread)
 
 	server := &http.Server{
-		Addr:    "0.0.0.0:8080",
+		Addr:    "${PORT}",
 		Handler: mux,
 	}
 
