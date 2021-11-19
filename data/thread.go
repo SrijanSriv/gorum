@@ -24,6 +24,7 @@ type Post struct {
 	Body      string
 	UserId    int
 	ThreadId  int
+	CreatedBy string
 	CreatedAt string
 }
 
@@ -119,6 +120,7 @@ func (user *User) CreatePost(thread Thread, body string) (post Post, err error) 
 
 	_, err = PostCollection.InsertOne(context.Background(), bson.D{
 		{Key: "Uuid", Value: createUUID()},
+		{Key: "ThreadId", Value: thread.Uuid},
 		{Key: "Body", Value: body},
 		{Key: "CreatedBy", Value: user.Name},
 		{Key: "CreatedAt", Value: time.Now().Format("02-01-2006 15:04:05")},
@@ -128,4 +130,35 @@ func (user *User) CreatePost(thread Thread, body string) (post Post, err error) 
 	}
 
 	return
+}
+
+func GetPosts(ThreadId string) (th []Post) {
+
+	cursor, err := PostCollection.Find(context.Background(), bson.M{"ThreadId": ThreadId})
+	if err != nil {
+		return
+	}
+
+	var post Post
+
+	defer cursor.Close(context.Background())
+
+	for cursor.Next(context.Background()) {
+
+		var singlePost bson.M
+		if err = cursor.Decode(&singlePost); err != nil {
+			log.Fatal(err)
+		}
+		post = Post{
+			Uuid:      fmt.Sprint(singlePost["Uuid"]),
+			Body:      fmt.Sprint(singlePost["Body"]),
+			CreatedBy: fmt.Sprint(singlePost["CreatedBy"]),
+			CreatedAt: fmt.Sprint(singlePost["CreatedAt"]),
+		}
+
+		th = append(th, post)
+
+	}
+
+	return th
 }

@@ -16,7 +16,7 @@
     <div class="panel-body" style="margin-top: 2rem; padding: 2rem; border: solid black 0.1rem;">
       <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
       <div class="pull-right">
-        {{ .UserId }} - {{ .CreatedAt }}
+        {{ .CreatedBy }} - {{ .CreatedAt }}
       </div>    
     </div>
 {{ end }}
@@ -26,9 +26,9 @@
     <form role="form" action="/thread/post" method="post">
       <div class="form-group">
         <textarea class="form-control" name="body" id="body" placeholder="Write your reply here" rows="3"></textarea>
-        <input type="hidden" name="uuid" value="{{ .Uuid }}">
         <br/>
         <button class="btn btn-primary pull-right" type="submit">Reply</button>
+        <input type="hidden" name="uuid" value="{{ .Thread.Uuid }}">
       </div>
     </form>
   </div>

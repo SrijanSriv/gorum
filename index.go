@@ -26,24 +26,28 @@ func index(w http.ResponseWriter, r *http.Request) {
 	public_temp_files := []string{"templates/public.layout.html", "templates/index.html", "templates/public.navbar.html", "templates/aside.html"}
 	private_temp_files := []string{"templates/private.layout.html", "templates/index.html", "templates/private.navbar.html", "templates/aside.html"}
 
-	sess, err := session(w, r)
-	_ = Info{threads, sess.Name}
+	_, username, err := session(w, r)
+	stuff := Info{threads, username}
 	if err != nil {
 		templates = template.Must(template.ParseFiles(public_temp_files...))
 	} else {
 		templates = template.Must(template.ParseFiles(private_temp_files...))
 	}
-
-	templates.Execute(w, threads)
+	templates.Execute(w, stuff)
 }
 
-func session(w http.ResponseWriter, r *http.Request) (sess data.Session, err error) {
+func session(w http.ResponseWriter, r *http.Request) (sess data.Session, username string, err error) {
 	cookie, err := r.Cookie("_cookie")
 	if err == nil {
 		sess = data.Session{Uuid: cookie.Value}
 		if ok, _ := sess.CheckSession(); !ok {
 			log.Fatal()
 		}
+		user, err := data.UserByUuid(cookie.Value)
+		if err != nil {
+			log.Fatal(err)
+		}
+		username = user.Name
 	}
 	return
 }

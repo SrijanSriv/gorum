@@ -5,36 +5,30 @@ import (
 	"log"
 	"net/http"
 	"text/template"
-	"time"
 
 	"github.com/SrijanSriv/gorum/data"
 )
 
 type ThreadsPosts struct {
-	Thread data.Thread
-	Post   []data.Post
+	Username string
+	Thread   data.Thread
+	Post     []data.Post
 }
 
 func readThread(w http.ResponseWriter, r *http.Request) {
 
 	uuid := r.URL.Query().Get("id")
 	stuff := ThreadsPosts{}
-	post := []data.Post{{
-		Id:        0,
-		Uuid:      "0",
-		Body:      "some body",
-		UserId:    0,
-		ThreadId:  0,
-		CreatedAt: time.Now().Format("02-01-2006 15:04:05"),
-	}}
+	post := data.GetPosts(uuid)
 	thread, err := data.ThreadByUuid(uuid)
 
+	_, stuff.Username, _ = session(w, r)
 	stuff.Thread = thread
 	stuff.Post = post
 	if err != nil {
 		log.Fatal(err)
 	} else {
-		_, err := session(w, r)
+		_, _, err := session(w, r)
 		var templates *template.Template
 		public_thread_files := []string{"templates/public.layout.html", "templates/public.navbar.html", "templates/public.thread.html"}
 		private_thread_files := []string{"templates/private.layout.html", "templates/private.navbar.html", "templates/private.thread.html"}
@@ -49,7 +43,7 @@ func readThread(w http.ResponseWriter, r *http.Request) {
 }
 
 func newThread(w http.ResponseWriter, r *http.Request) {
-	_, err := session(w, r)
+	_, _, err := session(w, r)
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
 	} else {
@@ -64,7 +58,7 @@ func newThread(w http.ResponseWriter, r *http.Request) {
 }
 
 func createThread(w http.ResponseWriter, r *http.Request) {
-	sess, err := session(w, r)
+	sess, _, err := session(w, r)
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
 	} else {
@@ -86,7 +80,7 @@ func createThread(w http.ResponseWriter, r *http.Request) {
 }
 
 func postThread(w http.ResponseWriter, r *http.Request) {
-	sess, err := session(w, r)
+	sess, _, err := session(w, r)
 
 	if err != nil {
 		http.Redirect(w, r, "/login", http.StatusFound)
@@ -97,7 +91,6 @@ func postThread(w http.ResponseWriter, r *http.Request) {
 		}
 		user, err := data.UserByUuid(sess.Uuid)
 		if err != nil {
-
 			log.Fatal(err)
 		}
 

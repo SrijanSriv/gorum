@@ -14,14 +14,14 @@
   </div>
 
 
-  {{ range .Post }}
-    <div class="panel-body" style="margin-top: 2rem; padding: 2rem; border: solid black 0.1rem;">
-      <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
-      <div class="pull-right">
-        {{ .UserId }} - {{ .CreatedAt }}
-      </div>    
-    </div>
-  {{ end }}
+{{ range .Post }}
+  <div class="panel-body" style="margin-top: 2rem; padding: 2rem; border: solid black 0.1rem;">
+    <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
+    <div class="pull-right">
+      {{ .CreatedBy }} - {{ .CreatedAt }}
+    </div>    
+  </div>
+{{ end }}
 
 </div>
 
