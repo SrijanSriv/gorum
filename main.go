@@ -21,7 +21,7 @@ func main() {
 	mux.HandleFunc("/thread/post", postThread)
 
 	server := &http.Server{
-		Addr:    "https://gorum.netlify.app",
+		Addr:    "0.0.0.0:8080",
 		Handler: mux,
 	}
 
