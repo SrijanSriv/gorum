@@ -49,7 +49,7 @@ func signupAccount(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 		fmt.Println("User already exists!") /*pop up*/
-		http.Redirect(w, r, "/", http.StatusFound)
+		http.Redirect(w, r, "/login", http.StatusFound)
 	}
 
 }
