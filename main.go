@@ -3,11 +3,11 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 )
 
 func main() {
 
-	fmt.Println("Listening to port :8080")
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", index)
 	mux.HandleFunc("/login", login)
@@ -20,8 +20,14 @@ func main() {
 	mux.HandleFunc("/thread/read", readThread)
 	mux.HandleFunc("/thread/post", postThread)
 
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	fmt.Println("Listening to port :", port)
+
 	server := &http.Server{
-		Addr:    "0.0.0.0:8080",
+		Addr:    "0.0.0.0:" + port,
 		Handler: mux,
 	}
 
