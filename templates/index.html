@@ -7,12 +7,12 @@
 {{ range .Threads }}
 
 <br/>
-  <div id="thread" class="card" style=" margin-bottom: 5rem; width: 30vw; max-width: 30rem;">
+  <div id="thread" class="card" style=" margin-bottom: 1.5rem; width: 30vw; max-width: 30rem;">
     <div class="card-body">
-      <h5 class="card-title">{{ .Topic }}</h5>
-      <h6 class="card-title">{{ .Body }}</h6>
-      <p class="card-text">Started By {{ .CreatedBy }}</p>
-      <p class="card-text">{{ .CreatedAt }}</p>
+      <h5 class="card-title" style="font-family: 'Work Sans',sans-serif;">{{ .Topic }}</h5>
+      <h6 class="card-title" style="padding: 5px 0px;">{{ .Body }}</h6>
+      <p class="card-text" style="font-family: 'Work Sans',sans-serif; padding: 0;">Started By {{ .CreatedBy }}</p>
+      <p class="card-text" style="font-family: 'Work Sans',sans-serif; padding: 0;">{{ .CreatedAt }}</p>
       <a class="btn btn-primary" href="/thread/read?id={{.Uuid }}">Read More</a>
     </div>
   </div>

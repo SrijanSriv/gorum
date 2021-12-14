@@ -1,26 +1,25 @@
 {{ define "content" }}
-
+<!-- <link href="/public/css/font-awesome.min.css" rel="stylesheet"> -->
 <div class="panel panel-default">
-  <div class="panel-heading" style="margin-top: 2rem; border: solid grey 0.05rem;">
-    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Thread.Topic }}</span>
+  <div class="panel-heading" style="margin-top: 2rem; border: solid grey 0.05rem; padding: 1rem; width: 75%;">
+    <span class="lead" style="font-family: 'Work Sans',sans-serif; font-weight:700;"> <i class="fa fa-comment-o"></i> {{ .Thread.Topic }}</span>
     <br/>
     <br/>
-    <span class="lead"> <i class="fa fa-comment-o"></i> {{ .Thread.Body }}</span>
-    <div class="pull-right">
-        <br/>
+    <span class="lead" style="font-size: 1.2rem;"> <i class="fa fa-comment-o"></i> {{ .Thread.Body }}</span>
+    <div class="pull-right" style="font-family: 'Work Sans',sans-serif;">
+        <hr style="border: none; border-bottom: 1px #000 dotted;">
       Started by {{ .Thread.CreatedBy }} - {{ .Thread.CreatedAt }}
     </div>
-
-  </div>
-
+</div>
 
 {{ range .Post }}
-  <div class="panel-body" style="margin-top: 2rem; padding: 2rem; border: solid black 0.1rem;">
-    <span class="lead"> <i class="fa fa-comment"></i> {{ .Body }}</span>
-    <div class="pull-right">
-      {{ .CreatedBy }} - {{ .CreatedAt }}
-    </div>    
-  </div>
+    <div class="panel-body" style="margin-top: 1.5rem; padding: 1rem; border: solid black 0.1rem; width: 50%; margin-bottom: 2rem;">
+      <span class="lead" style="font-size: 1.2rem;"> <i class="fa fa-comment"></i> {{ .Body }}</span>
+      <hr style="border:none; border-bottom:1px #000 dotted;">
+      <div class="pull-right" style="font-family: 'Work Sans',sans-serif;">
+        {{ .CreatedBy }} - {{ .CreatedAt }}
+      </div>    
+    </div>
 {{ end }}
 
 </div>
