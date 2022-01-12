@@ -1,7 +1,6 @@
 {{ define "public.navbar" }}
 <nav class="navbar navbar-expand-lg navbar-light" style="position: fixed; z-index: 1; width: 100vw; background-color: #007d9c; margin-bottom: 2rem;">
   <div class="container-fluid">
-    <a class="navbar-brand">Gorum</a>
       <div class="navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           <a class="nav-link active" aria-current="page" href="/">Home</a>
@@ -11,7 +10,20 @@
     </div>
   </div>
 </nav>
-<div style="background-color: #006c86; height: 10rem; width: 100vw; overflow-x: hidden;">
+<div id="nav" style="background-color: #006c86; height: 15rem; width: 100vw; overflow-x: hidden;">
+  <div style="margin-top: 2.5rem; font-size: 4rem; margin-left: 61.5%; transform: translate(-50%, 0%); color:aliceblue ;">
+    GORUM
+  </div>
+  <div
+  style=" height: 10rem; width: 10rem; transform: translate(-50%, 0%); margin-top: 0rem; margin-left: 52vw;">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg" 
+  alt = "gopher" height="100rem"/>
 </div>
+</div>
+<style>
+  @media screen and (min-width: 0px) and (max-width: 880px) {
+    #nav {display: none;}
+  }
+</style>
 {{ end }}
 
