@@ -41,7 +41,7 @@ func (user *User) CreateUser() (err error) {
 	return
 }
 
-func UserByEmail(email string) (user User, err error) { /*really messy, but FindOne doesn't seem to work*/
+func UserByEmail(email string) (user User, err error) {
 
 	var foundUuid string
 	var foundUser string
